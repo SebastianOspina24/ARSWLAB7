@@ -1,0 +1,48 @@
+body{
+    padding: 3%;
+    background-color:white;
+    color: black;
+    font-family:monospace;
+}
+.searchBar{
+    margin:5%;
+    padding: 1%;
+    align-items:center;
+    border-style: none none solid none;
+    width: 33%;
+    border-bottom-color: black;
+}
+.searchBar *{
+    display: inline;
+    margin: 1%;
+}
+.consulta{
+    display: flex;
+    padding: 2% 7%;
+}
+
+table *{
+    border: 1px solid;
+    padding: 1%;
+    text-align: center;
+    align-items: center;
+    margin: 1%;
+  }
+th{
+      width: 33%;
+}
+.blueprintInfo{
+    width: 50%;
+    display: inline;
+    margin-left:20%
+}
+.canvasTitle *{
+    text-align: center;
+    display: inline;
+    margin: 1%;
+}
+.canvas{
+    width: 50%;
+    height: 70%;
+    border: solid;
+}

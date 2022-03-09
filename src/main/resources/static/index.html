@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <title>Blueprints</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <script src="/js/app.js"></script>
+</head>
+
+<body>
+    <h1>Blueprints</h1>
+    <section class="searchBar">
+        <h3>Author</h3>
+        <input id="inputAuthor" type="text" placeholder="Nombre del author">
+        <Button class="btn" onclick="consulta()">Get Blueprints</Button>
+    </section>
+    <section class="consulta">
+        <div class="blueprintsInfo">
+            <h2 id="nombreAutor"></h2>
+            <table id="tablablueprints">
+                <tr>
+                    <th>Blueprint name</th>
+                    <th>Number of points</th>
+                    <th>Open</th>
+                </tr>
+            </table>
+            <h2 id="totalpoints"></h2>
+        </div>
+        <div class="blueprintInfo">
+            <div class="canvasTitle">
+                <center>
+                    <h2>Current Blueprint:</h2>
+                    <h2 id="blueprintname"></h2>
+                </center>
+            </div>
+
+            <canvas id="canvas" class="canvas">
+
+            </canvas>
+        </div>
+    </section>
+</body>
+
+</html>
