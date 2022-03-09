@@ -42,7 +42,7 @@ th{
     margin: 1%;
 }
 .canvas{
-    width: 50%;
-    height: 70%;
+    width: 500px;
+    height: 500px;
     border: solid;
 }

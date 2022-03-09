@@ -44,10 +44,11 @@ function canvas(author, paint) {
         var canvas = document.getElementById("canvas");
         let line = canvas.getContext("2d");
         line.beginPath();
-        data.points.forEach(element => {
-            line.moveTo(0, 0);
-            line.lineTo(element.x, element.y);
-        });
+        for(i=0;i<data.points.length;i++){
+            line.moveTo(data.points[i].x, data.points[i].y);
+            let j = i+1<data.points.length?i+1:0;
+            line.lineTo(data.points[j].x, data.points[j].y);
+        }
         line.closePath();
         line.stroke();
     });
