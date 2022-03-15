@@ -21,35 +21,7 @@ function consulta() {
             pn.innerHTML = element.points.length;
             btn.innerHTML = "<Button class=\"btn\" onclick=\"canvas('"+element.author + "','" + element.name + "')\">OPEN</Button>";
             puntos += element.points.length;
-            console.log(puntos);
         });
         document.getElementById("totalpoints").innerHTML = "Total user points: "+puntos;
-    });
-}
-
-function clscanvas(){
-    var c = document.getElementById("canvas");
-    let l = c.getContext("2d");
-    l.beginPath();
-    l.clearRect(0, 0,c.width,c.height);
-    l.closePath();
-}
-
-function canvas(author, paint) {
-    clscanvas();
-    document.getElementById("blueprintname").innerHTML = paint;
-    $.ajax({
-        url: "http://localhost:8080/blueprints/" + author + "/" + paint
-    }).then(function (data) {
-        var canvas = document.getElementById("canvas");
-        let line = canvas.getContext("2d");
-        line.beginPath();
-        for(i=0;i<data.points.length;i++){
-            line.moveTo(data.points[i].x, data.points[i].y);
-            let j = i+1<data.points.length?i+1:0;
-            line.lineTo(data.points[j].x, data.points[j].y);
-        }
-        line.closePath();
-        line.stroke();
     });
 }
