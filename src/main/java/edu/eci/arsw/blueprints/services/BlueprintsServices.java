@@ -37,6 +37,10 @@ public class BlueprintsServices {
     BluePrintsFilter filtro;
     
 
+    public void deleteBlueprint(String author,String name) throws BlueprintPersistenceException{
+        bpp.deleteBlueprint(author,name);
+    }
+
     public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException{
         bpp.saveBlueprint(bp);
     }

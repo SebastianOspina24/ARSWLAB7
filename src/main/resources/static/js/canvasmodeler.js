@@ -1,4 +1,7 @@
 var puntos = [];
+var actualbprint;
+var flag = false;
+
 
 var canvasModel = (function () {
   return {
@@ -6,13 +9,12 @@ var canvasModel = (function () {
       var canvas = document.getElementById("canvas");
       if (window.PointerEvent) {
         canvas.addEventListener("pointerdown", function (event) {
-          var rec = canvas.getBoundingClientRect();
-          var offset  = getOffset(canvas);
+          var offset = getOffset(canvas);
           console.log(puntos);
-          if (puntos.length > 0) {
+          if (flag) {
             var tempoint = {
               "x": event.pageX - offset.left,
-              "y": event.pageY -  offset.top
+              "y": event.pageY - offset.top
             };
             puntos.push(tempoint);
             paintpoints();
@@ -51,6 +53,7 @@ function paintpoints() {
   }
   line.closePath();
   line.stroke();
+  flag = true;
 };
 
 
@@ -60,15 +63,82 @@ function clscanvas() {
   l.beginPath();
   l.clearRect(0, 0, c.width, c.height);
   l.closePath();
+  flag = false;
 }
 
 function canvas(author, paint) {
   document.getElementById("blueprintname").innerHTML = paint;
+  actualbprint = {
+    "author": author.toString(),
+    "paint": paint.toString()
+  }
   $.ajax({
     url: "http://localhost:8080/blueprints/" + author + "/" + paint
   }).then(function (data) {
     puntos = data.points;
-    paintpoints()
+    paintpoints();
   });
 }
 
+
+function saveblueprint() {
+  var temjson = {
+    "author": actualbprint.author,
+    "points": puntos,
+    "name": actualbprint.paint
+  };
+  $.ajax({
+    url: "http://localhost:8080/blueprints/" + actualbprint.author + "/" + actualbprint.paint,
+    type: 'PUT',
+    data: JSON.stringify(temjson),
+    contentType: "application/json"
+  }).then(function () {
+    alert("Felicidades actualizaste el blueprint: " + temjson.name + " del author: " + temjson.author);
+    document.getElementById("inputAuthor").value = "";
+    clscanvas();
+    document.getElementById("blueprintname").innerHTML = "";
+    document.getElementById("botonconsulta").click();
+  });
+}
+
+
+function newblueprint() {
+  clscanvas();
+  var autor="";
+  var name ="";
+  while(autor == "" || autor == null){
+    autor = prompt("Ingresa el nombre del autor");
+  }
+  while(name == "" || name == null){
+    name = prompt("Ingrea el nombre de tu blueprint");
+  }
+  var temjson = {
+    "author": autor,
+    "points": [],
+    "name": name
+  };
+  $.ajax({
+    url: "http://localhost:8080/blueprints/creandoAndo",
+    type: 'POST',
+    data: JSON.stringify(temjson),
+    contentType: "application/json"
+  }).then(function () {
+    document.getElementById("inputAuthor").value = "";
+    document.getElementById("botonconsulta").click();
+    canvas(temjson.author, temjson.name);
+  });
+}
+
+function delblueprint(){
+  if(confirm("Seguro quiere borrar esta blueprint: " + actualbprint.paint + " del author: " + actualbprint.author)){
+    $.ajax({
+      url: "http://localhost:8080/blueprints/" + actualbprint.author + "/" + actualbprint.paint,
+      type: 'DELETE'
+    }).then(function () {
+      document.getElementById("inputAuthor").value = "";
+      document.getElementById("blueprintname").innerHTML = "";
+      clscanvas();
+      document.getElementById("botonconsulta").click();
+    });
+  }
+}

@@ -38,7 +38,17 @@ public class BlueprintAPIController {
     @Qualifier("Service")
     private BlueprintsServices bps;
 
-    
+    @RequestMapping(value = "/{author}/{bpname}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteBluePrintsWithJSON(@PathVariable("author") String author, @PathVariable("bpname") String bpname) {
+        try {
+            bps.deleteBlueprint(author, bpname);
+            return new ResponseEntity<>("Eliminaste esa monda felicidades", HttpStatus.ACCEPTED);
+        } catch (BlueprintPersistenceException ex) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Sigue intentanto algun dia aprenderas algo", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "/{author}/{bpname}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateBluePrintsWithJSON(@PathVariable("author") String author, @PathVariable("bpname") String bpname, @RequestBody Blueprint blueprint) {
         try {

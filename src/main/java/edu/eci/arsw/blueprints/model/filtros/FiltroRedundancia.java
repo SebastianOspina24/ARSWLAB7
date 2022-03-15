@@ -21,10 +21,12 @@ public class FiltroRedundancia implements BluePrintsFilter{
         String name = bp.getName();
         List<Point> puntos = bp.getPoints();
         List<Point> pnts= new ArrayList<>();
-        for(int i = 0;i<puntos.size()-1;i++){
-            if(puntos.get(i).getX()!=puntos.get(i+1).getX() || puntos.get(i).getY()!=puntos.get(i+1).getY())pnts.add(puntos.get(i));
+        if(puntos.size()!=0){
+            for(int i = 0;i<puntos.size()-1&&puntos.size() != 0;i++){
+                if(puntos.get(i).getX()!=puntos.get(i+1).getX() || puntos.get(i).getY()!=puntos.get(i+1).getY())pnts.add(puntos.get(i));
+            }
+            pnts.add(puntos.get(puntos.size()-1));
         }
-        pnts.add(puntos.get(puntos.size()-1));
         return new Blueprint(autor, name, pnts);
     }
     

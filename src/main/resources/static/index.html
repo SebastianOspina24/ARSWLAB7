@@ -17,7 +17,7 @@
     <section class="searchBar">
         <h3>Author</h3>
         <input id="inputAuthor" type="text" placeholder="Nombre del author">
-        <Button class="btn" onclick="consulta()">Get Blueprints</Button>
+        <Button id="botonconsulta" class="btn" onclick="consulta()">Get Blueprints</Button>
     </section>
     <section class="consulta">
         <div class="blueprintsInfo">
@@ -32,6 +32,7 @@
             <h2 id="totalpoints"></h2>
         </div>
         <div class="blueprintInfo">
+            <button class="bon createbutton" onclick="newblueprint()">Create New Blueprint</button>
             <div class="canvasTitle">
                 <center>
                     <h2>Current Blueprint:</h2>
@@ -42,6 +43,10 @@
             <canvas id="canvas" class="canvas" width="500" height="500">
 
             </canvas>
+            <div class="botonera">
+                <button class="bon savebutton" onclick="saveblueprint()">Save/Update</button>
+                <button class="bon deletebutton" onclick="delblueprint()">Delete</button>
+            </div>
         </div>
     </section>
 </body>

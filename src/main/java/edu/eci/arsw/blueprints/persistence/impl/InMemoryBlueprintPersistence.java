@@ -28,7 +28,7 @@ import org.springframework.stereotype.Repository;
 @Qualifier(value="Memory")
 public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
-    private final ConcurrentHashMap<Tuple<String,String>,Blueprint> blueprints=new ConcurrentHashMap <>();
+    private  ConcurrentHashMap<Tuple<String,String>,Blueprint> blueprints=new ConcurrentHashMap <>();
 
     public InMemoryBlueprintPersistence() {
         //load stub data
@@ -87,6 +87,16 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     @Override
     public void putBlueprint(String author, String name, List<Point> points) throws BlueprintNotFoundException {
         blueprints.get(new Tuple<>(author, name)).setPoints(points);
+    }
+
+    @Override
+    public void deleteBlueprint(String author, String name) throws BlueprintPersistenceException {
+        try {
+            blueprints.remove(new Tuple<>(author, name));
+        } catch (Exception e) {
+            throw new BlueprintPersistenceException("no existe esa monda");
+        }
+        
     }
 
     
